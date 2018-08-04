@@ -15,11 +15,18 @@ AttachScript(".\src\Ripper\Ext\ObjectModule.bsl", "Ripper");
 
 TextReader = New TextReader("C:\temp\RU\1Cv8_cf\root");
 Source = TextReader.Read();
+TextReader.Close();
 
 Ripper = New Ripper;
-List = Ripper.Parse(Source);
+Root = Ripper.Parse(Source);
+
+TextReader = New TextReader("C:\temp\RU\1Cv8_cf\" + Root[1]);
+Source = TextReader.Read();
+TextReader.Close();
+
+Conf = Ripper.Parse(Source);
 
 JSONWriter = New JSONWriter;
 JSONWriter.SetString(New JSONWriterSettings(, Chars.Tab));
-Dump(JSONWriter, List);
+Dump(JSONWriter, Conf);
 Message(JSONWriter.Close());
